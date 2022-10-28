@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:organizd_2/main.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class TimerClass extends StatefulWidget {
   const TimerClass({Key? key}) : super(key: key);
@@ -33,9 +36,11 @@ class _MyTimerPageState extends State<MyTimerPage> {
   Timer _timer = Timer(Duration(milliseconds: 1), () {});
   var format = NumberFormat("00");
   int atWork = 0;
+  String _state = "Stopped";
 
 
   void _restartTimer(){
+    _state = "Stopped";
     if(_timer != null) {
       _timer.cancel();
 
@@ -75,15 +80,28 @@ class _MyTimerPageState extends State<MyTimerPage> {
           else{
             _timer.cancel();
 
+            FlutterRingtonePlayer.playNotification(); // Riproduzione suono notifica fine timer
+            Fluttertoast.showToast(
+                msg: "End timer.",  // message
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 4,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0              // duration
+            );
+
             atWork++;
 
             if(atWork % 2 != 0){
               _seconds = 5;
               _minuts = 0;
+              _state = "Pause";
             }
             else{
               _seconds = 10;
               _minuts = 0;
+              _state = "Work";
             }
 
             print("Timer complete");
@@ -106,6 +124,8 @@ class _MyTimerPageState extends State<MyTimerPage> {
         mainAxisAlignment: MainAxisAlignment.center, // Allineamento verticale della scritta
         crossAxisAlignment: CrossAxisAlignment.stretch, // Allineamento orizzontale della scritta
         children: [
+
+          // Testo timer
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,8 +134,22 @@ class _MyTimerPageState extends State<MyTimerPage> {
                 "${format.format(_minuts)} : ${format.format(_seconds)}",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 48,
+                  fontSize: 50,
                 ),
+              ),
+            ],
+          ),
+
+          // Testo pomodoro / At work/ Break
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                  "🍅",
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
               ),
             ],
           ),

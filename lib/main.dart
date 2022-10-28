@@ -51,7 +51,11 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: _children[_currentIndex],
+      // Index per mantenere in memoria le pagine attive, come il timer uso indexedStack
+      body:IndexedStack(
+        index: _currentIndex,
+        children: _children,
+      ),
 
       bottomNavigationBar: GNav(
 
