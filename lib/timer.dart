@@ -125,15 +125,17 @@ class _MyTimerPageState extends State<MyTimerPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   setState((){
                     _restartTimer(); // In questo modo si resetta
                   });
                 },
-                color: Colors.white,
-                shape: CircleBorder(
-                  side: BorderSide(color: Colors.orange)
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: CircleBorder(
+                      side: BorderSide(color: Colors.orange)
+                  ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(40.0),
@@ -146,13 +148,15 @@ class _MyTimerPageState extends State<MyTimerPage> {
                   ),
                 ),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                     _startTimer();
                 },
-                color: Colors.orange,
-                shape: CircleBorder(
-                    side: BorderSide(color: Colors.orange)
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.orange,
+                  shape: CircleBorder(
+                      side: BorderSide(color: Colors.orange)
+                  ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(40.0),
