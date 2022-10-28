@@ -37,7 +37,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   final List<Widget> _children = [
     const Home(),
     const Calendar(),
-    const Timer(),
+    const TimerClass(),
     const Profile()
   ];
 

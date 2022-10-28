@@ -81,6 +81,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.6"
+  intl:
+    dependency: "direct dev"
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
   lints:
     dependency: transitive
     description:
@@ -116,6 +123,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
+  pausable_timer:
+    dependency: "direct dev"
+    description:
+      name: pausable_timer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+6"
   sky_engine:
     dependency: transitive
     description: flutter

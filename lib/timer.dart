@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:organizd_2/main.dart';
+import 'dart:async';
+import 'package:intl/intl.dart';
+import 'package:pausable_timer/pausable_timer.dart';
 
-class Timer extends StatefulWidget {
-  const Timer({Key? key}) : super(key: key);
+class TimerClass extends StatefulWidget {
+  const TimerClass({Key? key}) : super(key: key);
 
   @override
-  State<Timer> createState() => _TimerState();
+  State<TimerClass> createState() => _TimerState();
 }
 
-class _TimerState extends State<Timer> {
+class _TimerState extends State<TimerClass> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,6 +29,55 @@ class MyTimerPage extends StatefulWidget {
 }
 
 class _MyTimerPageState extends State<MyTimerPage> {
+  int _seconds = 0;
+  int _minuts = 25;
+  PausableTimer _timer = PausableTimer(Duration(milliseconds: 1), () {});
+  var format = NumberFormat("00");
+  bool isStarting = false;
+
+  void _pauseTimer(){
+    if(_timer != null){
+      _timer.pause();
+    }
+  }
+
+  void _restartTimer(){
+    if(_timer != null) {
+      _timer.cancel();
+      _seconds = 0;
+      _minuts = 25;
+    }
+  }
+
+  void _startTimer(){
+    if(_timer != null){
+      _timer.cancel();
+    }
+    if(_minuts > 0){
+      _seconds = _minuts * 60;
+    }
+    if(_seconds > 60){
+      _minuts = (_seconds/60).floor();
+      _seconds = _seconds - (_minuts * 60);
+    }
+    _timer = PausableTimer(Duration(seconds: 1), () {
+      setState(() {
+        if (_seconds > 0){
+          _seconds--;
+        }
+        else{
+          if(_minuts > 0){
+            _seconds = 59;
+            _minuts--;
+          }
+          else{
+            _timer.cancel();
+            print("Timer complete");
+          }
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +97,7 @@ class _MyTimerPageState extends State<MyTimerPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "25:00",
+                "${format.format(_minuts)} : ${format.format(_seconds)}",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 48,
@@ -61,7 +113,9 @@ class _MyTimerPageState extends State<MyTimerPage> {
             children: [
               RaisedButton(
                 onPressed: () {
-//                  _stopTimer();
+                  setState((){
+                    _restartTimer(); // In questo modo si resetta
+                  });
                 },
                 color: Colors.white,
                 shape: CircleBorder(
@@ -70,7 +124,7 @@ class _MyTimerPageState extends State<MyTimerPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(40.0),
                   child: Text(
-                      "Stop",
+                      "Restart",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 24,
@@ -80,7 +134,17 @@ class _MyTimerPageState extends State<MyTimerPage> {
               ),
               RaisedButton(
                 onPressed: () {
-//                  _stopTimer();
+
+
+                  if(isStarting == false){
+                    _startTimer();
+                    Text("Stop");
+                  }
+                  else{
+                    _pauseTimer();
+                    Text("Start");
+                  }
+
                 },
                 color: Colors.orange,
                 shape: CircleBorder(
