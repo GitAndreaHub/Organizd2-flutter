@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:organizd_2/main.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
-import 'package:pausable_timer/pausable_timer.dart';
 
 class TimerClass extends StatefulWidget {
   const TimerClass({Key? key}) : super(key: key);
@@ -29,27 +28,30 @@ class MyTimerPage extends StatefulWidget {
 }
 
 class _MyTimerPageState extends State<MyTimerPage> {
-  int _seconds = 0;
-  int _minuts = 25;
-  PausableTimer _timer = PausableTimer(Duration(milliseconds: 1), () {});
+  int _seconds = 10;
+  int _minuts = 0;
+  Timer _timer = Timer(Duration(milliseconds: 1), () {});
   var format = NumberFormat("00");
-  bool isStarting = false;
+  int atWork = 0;
 
-  void _pauseTimer(){
-    if(_timer != null){
-      _timer.pause();
-    }
-  }
 
   void _restartTimer(){
     if(_timer != null) {
       _timer.cancel();
-      _seconds = 0;
-      _minuts = 25;
+
+      if(atWork % 2 != 0){
+        _seconds = 5;
+        _minuts = 0;
+      }
+      else{
+        _seconds = 10;
+        _minuts = 0;
+      }
     }
   }
 
   void _startTimer(){
+
     if(_timer != null){
       _timer.cancel();
     }
@@ -60,7 +62,7 @@ class _MyTimerPageState extends State<MyTimerPage> {
       _minuts = (_seconds/60).floor();
       _seconds = _seconds - (_minuts * 60);
     }
-    _timer = PausableTimer(Duration(seconds: 1), () {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if (_seconds > 0){
           _seconds--;
@@ -72,6 +74,18 @@ class _MyTimerPageState extends State<MyTimerPage> {
           }
           else{
             _timer.cancel();
+
+            atWork++;
+
+            if(atWork % 2 != 0){
+              _seconds = 5;
+              _minuts = 0;
+            }
+            else{
+              _seconds = 10;
+              _minuts = 0;
+            }
+
             print("Timer complete");
           }
         }
@@ -134,17 +148,7 @@ class _MyTimerPageState extends State<MyTimerPage> {
               ),
               RaisedButton(
                 onPressed: () {
-
-
-                  if(isStarting == false){
                     _startTimer();
-                    Text("Stop");
-                  }
-                  else{
-                    _pauseTimer();
-                    Text("Start");
-                  }
-
                 },
                 color: Colors.orange,
                 shape: CircleBorder(
