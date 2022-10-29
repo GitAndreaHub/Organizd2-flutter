@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organizd_2/create_task.dart';
+import 'package:organizd_2/modify_task.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -22,6 +23,10 @@ class _ProfileState extends State<Profile> {
 
         children: [
 
+          SizedBox(
+            height: 50,
+          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
               children:[
@@ -29,7 +34,8 @@ class _ProfileState extends State<Profile> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => createTask()),
+                      MaterialPageRoute(builder: (context) => createTask()
+                      ),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -48,6 +54,41 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
           ),
+
+          SizedBox(
+            height: 50,
+          ),
+
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => modifyTask()
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.orange,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: Text(
+                    "Modify task",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+
 
         ],
       ),
