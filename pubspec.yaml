@@ -30,6 +30,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+# database storage
+  sqflite: ^2.0.0+3
+
+# format DateTime
+  intl: ^0.17.0
+
   google_nav_bar: ^5.0.6
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
