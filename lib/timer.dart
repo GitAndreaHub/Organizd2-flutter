@@ -174,7 +174,7 @@ class _MyTimerPageState extends State<MyTimerPage> {
             ],
           ),
 
-          // Testo pomodoro / At work/ Break
+          // Testo pomodoro
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,7 +188,7 @@ class _MyTimerPageState extends State<MyTimerPage> {
             ],
           ),
           SizedBox(
-            height: 100,
+            height: 60,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
