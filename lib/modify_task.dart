@@ -121,12 +121,12 @@ class _modifyTaskState extends State<modifyTask> {
           ),
 
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children:[
               ElevatedButton(
                 onPressed: () {
                   setState: ((){
-                    // Inserire funzione di aggiunta task.
+                    // Inserire funzione update.
                   });
                 },
                 style: ElevatedButton.styleFrom(
@@ -135,7 +135,60 @@ class _modifyTaskState extends State<modifyTask> {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "UPDATE",
+                    "Update",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+
+              ElevatedButton(
+                onPressed: () {
+                  setState: ((){
+                    // Inserire funzione complete task.
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.orange,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    "Complete",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+
+            ],
+          ),
+
+          SizedBox(
+            height: 20,
+          ),
+
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children:[
+              ElevatedButton(
+                onPressed: () {
+                  setState: ((){
+                    // Inserire funzione delete task.
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.orange,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    "Delete",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -145,9 +198,6 @@ class _modifyTaskState extends State<modifyTask> {
               ),
             ],
           ),
-
-
-
         ],
 
       ),
