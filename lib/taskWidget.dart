@@ -24,7 +24,7 @@ class taskWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     /// Pick colors from the accent colors based on index
     final color = _lightColors[index % _lightColors.length];
-    final time = DateFormat.yMMMd().format(task.date);
+    final time = task.date;
     final minHeight = getMinHeight(index);
 
     return Card(

@@ -40,7 +40,7 @@ class TaskDatabase{
     ${TaskFields.finished} $boolType,
     ${TaskFields.title} $textType,
     ${TaskFields.date} $textType,
-    ${TaskFields.time} $textType
+
     )
     ''');
   }
@@ -72,6 +72,22 @@ class TaskDatabase{
 
     final orderBy = '${TaskFields.date} ASC';
     final result = await db.query(tableTask, orderBy: orderBy);
+    return result.map((json) => Task.fromJson(json)).toList();
+  }
+
+  Future<List<Task>> readAllDoTask() async{
+    final db = await instance.database;
+
+    final orderBy = '${TaskFields.date} ASC';
+    final result = await db.query(tableTask,where: '${TaskFields.finished} = false', orderBy: orderBy);
+    return result.map((json) => Task.fromJson(json)).toList();
+  }
+
+  Future<List<Task>> readAllDoneTask() async{
+    final db = await instance.database;
+
+    final orderBy = '${TaskFields.date} ASC';
+    final result = await db.query(tableTask,where: '${TaskFields.finished} = true', orderBy: orderBy);
     return result.map((json) => Task.fromJson(json)).toList();
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:organizd_2/modify_task.dart';
 import 'package:organizd_2/taskWidget.dart';
 
 import 'create_task.dart';
@@ -34,7 +35,7 @@ class _HomeState extends State<Home> {
   Future refreshTasks() async {
     setState(() => isLoading = true);
 
-    this.tasks = await TaskDatabase.instance.readAllTask();
+    this.tasks = await TaskDatabase.instance.readAllDoTask();
 
     setState(() => isLoading = false);
   }
@@ -56,11 +57,22 @@ class _HomeState extends State<Home> {
         'No Notes',
         style: TextStyle(color: Colors.white, fontSize: 24),
       )
-          : buildNotes(),
+          : buildTasks(),
+    ),
+    floatingActionButton: FloatingActionButton(
+      backgroundColor: Colors.black,
+      child: Icon(Icons.add),
+      onPressed: () async {
+        await Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => createTask()),
+        );
+
+        refreshTasks();
+      },
     ),
   );
 
-  Widget buildNotes() => StaggeredGridView.countBuilder(
+  Widget buildTasks() => StaggeredGridView.countBuilder(
     padding: EdgeInsets.all(8),
     itemCount: tasks.length,
     staggeredTileBuilder: (index) => StaggeredTile.fit(2),
@@ -73,7 +85,7 @@ class _HomeState extends State<Home> {
       return GestureDetector(
         onTap: () async {
           await Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => createTask(),
+            builder: (context) => modifyTask(),
           ));
 
           refreshTasks();
