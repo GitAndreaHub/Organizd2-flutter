@@ -49,6 +49,11 @@ class taskWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            SizedBox(height: 4),
+            Text(
+              task.time,
+              style: TextStyle(color: Colors.grey.shade700),
+            ),
           ],
         ),
       ),

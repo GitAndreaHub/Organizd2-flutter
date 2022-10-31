@@ -21,12 +21,11 @@ class _createTaskState extends State<createTask> {
 
   DateTime? date;
   TimeOfDay? time;
-  TextEditingController lastNameController = TextEditingController();
+  TextEditingController taskNameController = TextEditingController();
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
-
-
   }
 
   @override
@@ -44,7 +43,8 @@ class _createTaskState extends State<createTask> {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left:5, bottom: 0, right: 0, top:35),
+                padding: const EdgeInsets.only(
+                    left: 5, bottom: 0, right: 0, top: 35),
                 child: Text(
                   "Add your task",
                   style: TextStyle(
@@ -57,44 +57,49 @@ class _createTaskState extends State<createTask> {
           ),
 
           Padding(
-            padding: const EdgeInsets.only(left:10, bottom: 10, right: 10, top:12),
+            padding: const EdgeInsets.only(
+                left: 10, bottom: 10, right: 10, top: 12),
             child: TextFormField(
-              controller: lastNameController,
+              controller: taskNameController,
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
                 labelText: 'Enter your task',
               ),
-              validator: (title) => title != null && title.isEmpty
-                ? 'The task name cannot be empty'
+              validator: (title) =>
+              title != null && title.isEmpty
+                  ? 'The task name cannot be empty'
                   : null,
 
             ),
           ),
 
           Padding(
-              padding: const EdgeInsets.only(left:10, bottom: 10, right: 10, top:12),
-              child: ElevatedButton(
-                onPressed: () {
-                  setState ((){
-                    pickDate(context); // Richiamo pannello inserimento data.
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text(
+            padding: const EdgeInsets.only(
+                left: 10, bottom: 10, right: 10, top: 12),
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  pickDate(context); // Richiamo pannello inserimento data.
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(
                     "Select date"
-                  ),
                 ),
               ),
+            ),
 
           ),
 
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left:15, bottom: 20, right: 0, top:1),
+                padding: const EdgeInsets.only(
+                    left: 15, bottom: 20, right: 0, top: 1),
                 child: Text(
-                  setTextDate(), // Richiamo funzione per mostrare la data scelta
+                  setTextDate(),
+                  // Richiamo funzione per mostrare la data scelta
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -106,17 +111,18 @@ class _createTaskState extends State<createTask> {
 
 
           Padding(
-            padding: const EdgeInsets.only(left:10, bottom: 10, right: 10, top:12),
+            padding: const EdgeInsets.only(
+                left: 10, bottom: 10, right: 10, top: 12),
             child: ElevatedButton(
               onPressed: () {
-                setState ((){
-                  pickTime(context);// Richiamo pannello inserimento data.
+                setState(() {
+                  pickTime(context); // Richiamo pannello inserimento data.
                 });
               },
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Text(
-                    "Select time",
+                  "Select time",
                 ),
               ),
             ),
@@ -124,14 +130,15 @@ class _createTaskState extends State<createTask> {
           ),
 
 
-
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left:15, bottom: 20, right: 0, top:1),
+                padding: const EdgeInsets.only(
+                    left: 15, bottom: 20, right: 0, top: 1),
                 child: Text(
-                  setTextTime(), // Richiamo funzione per mostrare l'orario scelto
+                  setTextTime(),
+                  // Richiamo funzione per mostrare l'orario scelto
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -143,61 +150,31 @@ class _createTaskState extends State<createTask> {
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children:[
+            children: [
               ElevatedButton(
                 onPressed: () {
-                  setState ((){
-                    // Inserire funzione di aggiunta task.
+                  setState(() {
+                    //funzione di aggiunta task.
 
                     //controllo dati non nulli
-                    if(date != null || time != null){
-                      if(checkDate(date!, time!)){
+                    if (date != null && time != null && taskNameController.text.isNotEmpty) {
+                      if (checkDate(date!, time!)) {
+                        String year = DateFormat('yyyy-MM-dd')
+                            .format(date!)
+                            .toString();
+                        String hour = time.toString().substring(10, time
+                            .toString()
+                            .length - 1);
 
+                        String nameTask = taskNameController.text;
 
-
-                        String year = DateFormat('yyyy-MM-dd').format(date!).toString();
-                        String month = DateFormat('MM').format(date!).toString();
-                        String day = DateFormat('dd').format(date!).toString();
-                        String hour = time.toString().substring(10, time.toString().length -1);
-                        String minutes = time!.minute.toString();
-                        String nameTask = lastNameController.text;
-
-                        print(year);
-                        print(month);
-                        print(day);
-                        print(hour);
-                        print(minutes);
-                        print(time.toString().substring(10, time.toString().length -1));
-
-                        print(nameTask);
 
                         addTask(year, nameTask, hour);
                         Navigator.of(context).pop();
-
-
-
-
-
-
-                      }else _showToastDatetime(context);
-
-                      }else _showToast(context);
-                      String year = DateFormat('yyyy-MM-dd').format(date!).toString();
-                      String month = DateFormat('MM').format(date!).toString();
-                      String day = DateFormat('dd').format(date!).toString();
-                      String hour = time!.hour.toString();
-                      String minutes = time!.minute.toString();
-                      String nameTask = lastNameController.text;
-                      print(year);
-                      print(month);
-                      print(day);
-                      print(hour);
-                      print(minutes);
-
-                      print(nameTask);
-
-
-
+                      } else
+                        _showToastDatetime(context);
+                    } else
+                      _showToast(context);
                   });
                 },
                 style: ElevatedButton.styleFrom(
@@ -218,7 +195,6 @@ class _createTaskState extends State<createTask> {
           ),
 
 
-
         ],
 
       ),
@@ -227,29 +203,39 @@ class _createTaskState extends State<createTask> {
 
   //controllo che la data selezionata uguale o maggiore alla data di adesso
 
-  bool checkDate( DateTime selectedDate, TimeOfDay timeSelected){
-     var now = DateTime.now();
-     if(selectedDate.year > now.year) return true;
-     if(selectedDate.year == now.year && selectedDate.month > now.month) return true;
-     if(selectedDate.year == now.year && selectedDate.month > now.month) return true;
-     if(selectedDate.year == now.year && selectedDate.month == now.month && selectedDate.day > now.day) return true;
-     if(selectedDate.year == now.year && selectedDate.month == now.month && selectedDate.day == now.day){
-       if(checkTime(timeSelected)) return true;
-       else return false;
-     }
-     return false;
+  bool checkDate(DateTime selectedDate, TimeOfDay timeSelected) {
+    var now = DateTime.now();
+    if (selectedDate.year > now.year) return true;
+    if (selectedDate.year == now.year && selectedDate.month > now.month)
+      return true;
+    if (selectedDate.year == now.year && selectedDate.month > now.month)
+      return true;
+    if (selectedDate.year == now.year && selectedDate.month == now.month &&
+        selectedDate.day > now.day) return true;
+    if (selectedDate.year == now.year && selectedDate.month == now.month &&
+        selectedDate.day == now.day) {
+      if (checkTime(timeSelected))
+        return true;
+      else
+        return false;
+    }
+    return false;
   }
 
 
 //se il giorno è lo stesso andrò a controllare che l'orario sia maggiore a quello di adesso
 
-  bool checkTime( TimeOfDay timeSelected){
-
-    if(timeSelected.hour > TimeOfDay.now().hour ) return true;
-    if(timeSelected.hour == TimeOfDay.now().hour && timeSelected.minute > TimeOfDay.now().minute)return true;
+  bool checkTime(TimeOfDay timeSelected) {
+    if (timeSelected.hour > TimeOfDay
+        .now()
+        .hour) return true;
+    if (timeSelected.hour == TimeOfDay
+        .now()
+        .hour && timeSelected.minute > TimeOfDay
+        .now()
+        .minute) return true;
     return false;
-    }
-
+  }
 
 
   void _showToast(BuildContext context) {
@@ -257,7 +243,8 @@ class _createTaskState extends State<createTask> {
     scaffold.showSnackBar(
       SnackBar(
         content: const Text('Insert all data'),
-        action: SnackBarAction(label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(
+            label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
@@ -268,11 +255,11 @@ class _createTaskState extends State<createTask> {
     scaffold.showSnackBar(
       SnackBar(
         content: const Text('Select correct date/time'),
-        action: SnackBarAction(label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(
+            label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
-
 
 
   Future pickDate(BuildContext context) async {
@@ -288,17 +275,16 @@ class _createTaskState extends State<createTask> {
           .year + 5),
     );
 
-    if(newDate == null) return;
+    if (newDate == null) return;
 
     setState(() => date = newDate);
-
   }
 
-  String setTextDate(){
-    if(date == null){
+  String setTextDate() {
+    if (date == null) {
       return "";
     }
-    else{
+    else {
       return "${date?.day}/${date?.month}/${date?.year}";
     }
   }
@@ -306,35 +292,56 @@ class _createTaskState extends State<createTask> {
   Future pickTime(BuildContext context) async {
     final initialTime = TimeOfDay.now();
     final newTime = await showTimePicker(
-        context: context,
-        initialTime: time ?? initialTime,
+      context: context,
+      initialTime: time ?? initialTime,
     );
 
-    if(newTime == null) return;
+    if (newTime == null) return;
 
     setState(() => time = newTime);
   }
 
-  String setTextTime(){
-    if(time == null){
+  String setTextTime() {
+    if (time == null) {
       return "";
     }
-    else{
+    else {
+      if (time?.hour
+          .toString()
+          .length == 2 && time?.minute
+          .toString()
+          .length == 1) {
+        return "${time?.hour}:0${time?.minute}";
+      }
+      if (time?.hour
+          .toString()
+          .length == 1 && time?.minute
+          .toString()
+          .length == 2) {
+        return "0${time?.hour}:${time?.minute}";
+      }
+      if (time?.hour
+          .toString()
+          .length == 1 && time?.minute
+          .toString()
+          .length == 1) {
+        return "0${time?.hour}:0${time?.minute}";
+      }
       return "${time?.hour}:${time?.minute}";
     }
   }
 
-    Future addTask(date , title, time ) async{
+  Future addTask(date, title, time) async {
     final task = Task(
-      title: title,
-      finished:  false,
-      date: date,
-      time: time
+        title: title,
+        finished: false,
+        date: date,
+        time: time
     );
     await TaskDatabase.instance.create(task);
   }
-
 }
+
 
 
 

@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text(
-        'Tasks',
+        'Tasks to do',
         style: TextStyle(fontSize: 24),
       ),
       actions: [Icon(Icons.search), SizedBox(width: 12)],
@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
       return GestureDetector(
         onTap: () async {
           await Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => modifyTask(),
+            builder: (context) => modifyTask(task: note),
           ));
 
           refreshTasks();
