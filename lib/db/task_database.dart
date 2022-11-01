@@ -86,7 +86,7 @@ class TaskDatabase{
   Future<List<Task>> readAllDoneTask() async{
     final db = await instance.database;
 
-    final orderBy = '${TaskFields.date} ASC';
+    final orderBy = '${TaskFields.date} DESC';
     final result = await db.query(tableTask,where: '${TaskFields.finished} = true', orderBy: orderBy);
     return result.map((json) => Task.fromJson(json)).toList();
   }
