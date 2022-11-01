@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:organizd_2/profile.dart';
+
 import 'package:organizd_2/timer.dart';
 import 'package:organizd_2/homepage.dart';
 
@@ -38,7 +38,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     const Home(),
     const Calendar(),
     const TimerClass(),
-    const Profile()
   ];
 
   void onTapperBar(int index){
@@ -69,22 +68,17 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           GButton(
               //leading: Home(),
               icon: Icons.home,
-              text: 'Home',
+              text: 'To do',
           ),
           GButton(
               //leading: Calendar(),
-              icon: Icons.calendar_month,
-              text: 'Calendar',
+              icon: Icons.account_balance_wallet,
+              text: 'Done',
           ),
           GButton(
               //leading: Timer(),
               icon: Icons.timer,
               text: 'Timer'
-          ),
-          GButton(
-              //leading: Profile(),
-              icon: Icons.account_circle_rounded,
-              text: 'Profile'
           ),
         ],
       ),

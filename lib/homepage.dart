@@ -60,7 +60,7 @@ class _HomeState extends State<Home> {
           : buildTasks(),
     ),
     floatingActionButton: FloatingActionButton(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.orange,
       child: Icon(Icons.add),
       onPressed: () async {
         await Navigator.of(context).push(
