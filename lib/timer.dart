@@ -33,8 +33,8 @@ class MyTimerPage extends StatefulWidget {
 }
 
 class _MyTimerPageState extends State<MyTimerPage> {
-  int _seconds = 10;
-  int _minuts = 0;
+  int _seconds = 0;
+  int _minuts = 25;
   Timer _timer = Timer(Duration(milliseconds: 1), () {});
   var format = NumberFormat("00");
   int atWork = 0;
@@ -73,12 +73,12 @@ class _MyTimerPageState extends State<MyTimerPage> {
       _timer.cancel();
 
       if(atWork % 2 != 0){
-        _seconds = 5;
-        _minuts = 0;
+        _seconds = 0;
+        _minuts = 5;
       }
       else{
-        _seconds = 10;
-        _minuts = 0;
+        _seconds = 0;
+        _minuts = 25;
       }
     }
   }
@@ -122,13 +122,13 @@ class _MyTimerPageState extends State<MyTimerPage> {
             atWork++;
 
             if(atWork % 2 != 0){
-              _seconds = 5;
-              _minuts = 0;
+              _seconds = 0;
+              _minuts = 5;
               _state = "Pause";
             }
             else{
-              _seconds = 10;
-              _minuts = 0;
+              _seconds = 0;
+              _minuts = 25;
               _state = "Work";
             }
 
