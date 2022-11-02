@@ -86,7 +86,7 @@ class _MyTimerPageState extends State<MyTimerPage> {
   void _startTimer(){
 
     if(_timer != null){
-      _timer.cancel();
+      _restartTimer();
     }
     if(_minuts > 0){
       _seconds = _minuts * 60;
