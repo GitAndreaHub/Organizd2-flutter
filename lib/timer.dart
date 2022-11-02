@@ -389,14 +389,10 @@ class _MyTimerPageState extends State<MyTimerPage> {
                             (Duration d) {
                           setState(() {
                             value = d.inSeconds.toDouble();
-
-                            print(value);
                           });
                         },
                       );
                     }
-
-                    print(duration);
                   },
                   child: Center(
                     child: Icon(
