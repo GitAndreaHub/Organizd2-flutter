@@ -12,6 +12,7 @@ class TaskDatabase{
 
   static Database? _database;
 
+
   TaskDatabase._init();
 
   Future<Database> get database async {
@@ -35,14 +36,14 @@ class TaskDatabase{
     final textType = 'TEXT NOT NULL';
 
     await db.execute('''
-    CREATE TABLE $tableTask(
+  CREATE TABLE $tableTask (
     ${TaskFields.id} $idType,
     ${TaskFields.finished} $boolType,
     ${TaskFields.title} $textType,
     ${TaskFields.date} $textType,
-
+    ${TaskFields.time} $textType
     )
-    ''');
+  ''');
   }
 
   Future<Task> create(Task task) async {

@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+
 # database storage
   sqflite: ^2.0.0+3
 
